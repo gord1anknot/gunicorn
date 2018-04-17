@@ -113,6 +113,7 @@ class AsyncWorker(base.Worker):
             if not respiter:
                 # the request timed out
                 self.log.critical("REQUEST TIMEOUT")
+                self.log.info("", extra={"mtype": "counter", "metric": "gunicorn.request_timeout", "value": 1})
                 resp.force_close()
                 self.alive = False
                 return False
